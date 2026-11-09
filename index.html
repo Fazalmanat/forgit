@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE INTERNET DUMP™</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    cursor: crosshair;
+}
+
+body {
+    margin: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        #080008,
+        #080008 10px,
+        #190019 10px,
+        #190019 20px
+    );
+    color: lime;
+    font-family: "Comic Sans MS", cursive;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(90deg, red, purple, blue);
+    border-bottom: 5px dashed yellow;
+}
+
+header h1 {
+    font-size: 50px;
+    color: yellow;
+    text-shadow: 4px 4px red, -4px -4px blue;
+    animation: shake 0.2s infinite alternate;
+}
+
+marquee {
+    background: yellow;
+    color: red;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 15px;
+    padding: 15px;
+}
+
+.box {
+    border: 4px ridge hotpink;
+    background: #100010;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px magenta;
+}
+
+.box h2 {
+    color: hotpink;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.ad {
+    background: linear-gradient(135deg, red, orange, yellow);
+    color: black;
+    border: 5px outset yellow;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transform: rotate(-1deg);
+}
+
+.ad button {
+    background: lime;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    border: 4px outset green;
+    padding: 10px;
+}
+
+.ad button:hover {
+    background: hotpink;
+    transform: scale(1.1);
+}
+
+.center {
+    border: 5px dashed lime;
+    padding: 20px;
+    background: rgba(0,0,0,.8);
+}
+
+.fake-popup {
+    background: red;
+    color: yellow;
+    border: 5px double white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    animation: blink 0.5s infinite;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: black;
+    border-top: 5px dotted lime;
+    color: hotpink;
+}
+
+@keyframes blink {
+    50% { opacity: 0.3; }
+}
+
+@keyframes shake {
+    from { transform: rotate(-2deg); }
+    to { transform: rotate(2deg); }
+}
+
+@media(max-width:800px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💀 THE INTERNET DUMP™ 💀</h1>
+    <p>WELCOME, LOSER. YOU ARE VISITOR #9999999</p>
+</header>
+
+<marquee scrollamount="12">
+🔥 HOT DEALS!!! FREE MONEY!!! YOUR COMPUTER HAS 694 VIRUSES!!! CLICK EVERYTHING!!! 🔥
+</marquee>
+
+<div class="container">
+
+<!-- LEFT SIDEBAR -->
+<aside>
+
+    <div class="box">
+        <h2>🎰 CASINO ZONE</h2>
+        <div class="ad">
+            <h1>777</h1>
+            <p>SPIN TO WIN!!!</p>
+            <button onclick="alert('Congratulations! You won absolutely nothing.')">
+                PLAY NOW
+            </button>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>🚨 URGENT!!!</h2>
+        <p>YOUR IPHONE IS WAITING!</p>
+        <button onclick="alert('Nice try.')">CLAIM PRIZE</button>
+    </div>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="center">
+
+    <div class="fake-popup">
+        ⚠️ CONGRATULATIONS!!! ⚠️<br>
+        YOU ARE OUR 1000000TH VISITOR!
+        <br><br>
+        <button onclick="this.parentElement.style.display='none'">
+            CLAIM YOUR PRIZE
+        </button>
+    </div>
+
+    <h1 style="color:yellow;text-align:center">
+        WELCOME TO THE DIGITAL DUMPSTER
+    </h1>
+
+    <p style="font-size:20px;text-align:center">
+        Where bad decisions become internet history.
+    </p>
+
+    <hr>
+
+    <div class="ad">
+        <h2>💰 GET RICH IN 0.0001 SECONDS 💰</h2>
+        <p>Doctors hate this one weird trick!</p>
+        <button onclick="alert('Step 1: Touch grass.')">
+            UNLOCK SECRET
+        </button>
+    </div>
+
+    <div class="box">
+        <h2>📢 RANDOM INTERNET GARBAGE</h2>
+        <p>• 5000 free wallpapers (all blurry)</p>
+        <p>• Download RAM.exe</p>
+        <p>• Become a millionaire using MS Paint</p>
+        <p>• Free antivirus that IS the virus</p>
+        <p>• 100% REAL celebrity secrets</p>
+    </div>
+
+    <div class="ad" style="background:linear-gradient(90deg,magenta,cyan)">
+        <h1>BITCOIN???</h1>
+        <p>INVEST 3 RUPEES. BECOME BILLIONAIRE.</p>
+        <button onclick="alert('Your financial advisor has left the chat.')">
+            INVEST NOW
+        </button>
+    </div>
+
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside>
+
+    <div class="box">
+        <h2>💸 JACKPOT</h2>
+        <div class="ad">
+            <h1>💎 999999 💎</h1>
+            <p>FREE COINS!!!</p>
+            <button onclick="alert('You have been awarded 0 coins.')">
+                COLLECT
+            </button>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>🧠 BRAIN TEST</h2>
+        <p>Are you stupid?</p>
+        <button onclick="alert('Test complete. Yes.')">
+            TAKE TEST
+        </button>
+    </div>
+
+    <div class="box">
+        <h2>DOWNLOADS</h2>
+        <p>⬇️ Free Minecraft</p>
+        <p>⬇️ 1000 GTA 6 copies</p>
+        <p>⬇️ Totally legal MP3s</p>
+    </div>
+
+</aside>
+
+</div>
+
+<marquee direction="right" scrollamount="15">
+💀 YOU HAVE BEEN WARNED 💀 THIS WEBSITE IS 100% UNTRUSTWORTHY 💀
+</marquee>
+
+<footer>
+    <p>© 2003-2026 THE INTERNET DUMP™</p>
+    <p>Best viewed on a calculator with Internet Explorer 6</p>
+    <p>Visitor Counter: 000000069</p>
+    <p>⚠️ We sell your data to imaginary corporations ⚠️</p>
+</footer>
+
+</body>
+</html>
