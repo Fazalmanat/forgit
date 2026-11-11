@@ -485,11 +485,200 @@ footer {
     }
 
 }
+
+/* =================================
+   FULL SCREEN JACKPOT OVERLAY
+================================= */
+
+.win-celebration {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    z-index: 2147483647 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.92);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+.win-celebration.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.win-message {
+    position: relative;
+    z-index: 10;
+
+    width: min(90%, 650px);
+    padding: 30px 15px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        #ff00ff,
+        #7500a8,
+        #ff0000
+    );
+
+    border: 10px ridge gold;
+
+    box-shadow:
+        0 0 25px gold,
+        0 0 60px magenta;
+
+    transform: scale(0);
+}
+
+.win-celebration.active .win-message {
+    animation: jackpotPop 2.8s ease forwards;
+}
+
+.win-message h1 {
+    color: yellow;
+    font-size: clamp(40px, 9vw, 85px);
+    margin: 10px 0;
+
+    text-shadow:
+        4px 4px red,
+        -4px -4px blue,
+        0 0 20px yellow;
+
+    animation: jackpotText 0.25s infinite alternate;
+}
+
+.win-message p {
+    color: white;
+    font-weight: bold;
+    font-size: clamp(13px, 3vw, 22px);
+}
+
+#confettiContainer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    top: -25px;
+    animation: confettiFall 2s ease-in forwards;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.confetti.gold {
+    background: linear-gradient(135deg, #fff4a3, #d4a017, #fff0a0);
+    color: gold;
+}
+
+.confetti.silver {
+    background: linear-gradient(135deg, white, #888, #eee);
+    color: silver;
+}
+
+.confetti.pink {
+    background: linear-gradient(135deg, #ffb3ff, #ff00ff, white);
+    color: magenta;
+}
+
+.confetti.cyan {
+    background: linear-gradient(135deg, white, cyan, #007fff);
+    color: cyan;
+}
+
+.confetti.green {
+    background: linear-gradient(135deg, #ccffcc, lime, green);
+    color: lime;
+}
+
+@keyframes jackpotPop {
+    0% {
+        transform: scale(0) rotate(-15deg);
+    }
+
+    15% {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    25% {
+        transform: scale(1) rotate(0);
+    }
+
+    85% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+@keyframes jackpotText {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-5vh) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(115vh) rotate(900deg);
+        opacity: 0;
+    }
+}
+
+@keyframes overlayDisappear {
+    0%, 85% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
 </style>
 
 </head>
 
 <body>
+
+<!-- WIN CELEBRATION OVERLAY -->
+<div id="winCelebration" class="win-celebration">
+
+    <div class="win-message">
+        🎉 JACKPOT!!! 🎉
+        <h1>YOU WON!!!</h1>
+        <p>💰 THE CASINO HAS BEEN DEFEATED 💰</p>
+    </div>
+
+    <div id="confettiContainer"></div>
+
+</div>
 
 <header>
     <h1>🎰 THE SCAM CASINO 🎰</h1>
@@ -1157,6 +1346,9 @@ function finishGame(number) {
     // Calculate outcome
     if (won) {
 
+        // Trigger jackpot celebration
+        showWinCelebration();
+
         balance += winnings;
 
         document.getElementById("resultText").textContent =
@@ -1234,6 +1426,70 @@ function addHistory(number, color, won, bet) {
     history.prepend(entry);
 
 }
+
+
+// =============================================
+// JACKPOT CELEBRATION
+// =============================================
+
+
+function showWinCelebration() {
+
+    const overlay = document.getElementById("winCelebration");
+    const container = document.getElementById("confettiContainer");
+
+    if (!overlay || !container) {
+        console.error("Celebration HTML elements not found!");
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const colors = ["gold", "silver", "pink", "cyan", "green"];
+
+    // Create 150 confetti pieces
+    for (let i = 0; i < 150; i++) {
+
+        const piece = document.createElement("div");
+
+        piece.className = "confetti " +
+            colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.left = Math.random() * 100 + "%";
+
+        piece.style.animationDelay =
+            Math.random() * 0.6 + "s";
+
+        piece.style.animationDuration =
+            (1.5 + Math.random() * 1) + "s";
+
+        piece.style.width =
+            (5 + Math.random() * 10) + "px";
+
+        piece.style.height =
+            (10 + Math.random() * 18) + "px";
+
+        container.appendChild(piece);
+
+    }
+
+    // Show full-screen overlay
+    overlay.classList.remove("active");
+
+    void overlay.offsetWidth;
+
+    overlay.classList.add("active");
+
+    // Remove after animation
+    setTimeout(() => {
+
+        overlay.classList.remove("active");
+        container.innerHTML = "";
+
+    }, 3100);
+
+}
+
 
 
 </script>
