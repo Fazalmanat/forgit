@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOGIN.EXE - INTERNET DUMP</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    cursor: crosshair;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: repeating-linear-gradient(
+        45deg,
+        #080008,
+        #080008 10px,
+        #190019 10px,
+        #190019 20px
+    );
+    color: lime;
+    font-family: "Comic Sans MS", cursive;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(90deg, red, purple, blue);
+    border-bottom: 5px dashed yellow;
+}
+
+header h1 {
+    font-size: 40px;
+    color: yellow;
+    text-shadow: 4px 4px red, -4px -4px blue;
+    animation: shake 0.2s infinite alternate;
+}
+
+marquee {
+    background: yellow;
+    color: red;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+    background: #100010;
+    border: 6px ridge hotpink;
+    box-shadow: 0 0 25px magenta;
+    padding: 25px;
+    text-align: center;
+}
+
+.login-box h2 {
+    color: hotpink;
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+.warning {
+    background: red;
+    color: yellow;
+    border: 4px double white;
+    padding: 10px;
+    font-weight: bold;
+    animation: blink 0.5s infinite;
+}
+
+label {
+    display: block;
+    text-align: left;
+    color: cyan;
+    margin-top: 18px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    background: black;
+    color: lime;
+    border: 3px ridge magenta;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: yellow;
+    box-shadow: 0 0 10px lime;
+}
+
+button {
+    background: lime;
+    color: red;
+    border: 4px outset green;
+    padding: 12px;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: hotpink;
+    transform: scale(1.05);
+}
+
+.fake-ad {
+    margin-top: 20px;
+    background: linear-gradient(135deg, red, orange, yellow);
+    color: black;
+    border: 5px outset yellow;
+    padding: 12px;
+    transform: rotate(-1deg);
+}
+
+footer {
+    background: black;
+    border-top: 5px dotted lime;
+    text-align: center;
+    padding: 20px;
+    color: hotpink;
+}
+
+@keyframes blink {
+    50% { opacity: 0.3; }
+}
+
+@keyframes shake {
+    from { transform: rotate(-2deg); }
+    to { transform: rotate(2deg); }
+}
+
+@media(max-width: 500px) {
+    header h1 {
+        font-size: 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💀 INTERNET DUMP TRUCK™ 💀</h1>
+    <p>WELCOME BACK, INTERNET GOBLIN</p>
+</header>
+
+<marquee scrollamount="12">
+🚨 LOGIN IMMEDIATELY!!! YOUR FREE RAM IS EXPIRING!!! PASSWORDS ARE A SOCIAL CONSTRUCT!!! 🚨
+</marquee>
+
+<div class="main">
+
+    <div class="login-box">
+
+        <div class="warning">
+            ⚠️ AUTHENTICATION ZONE ⚠️
+        </div>
+
+        <h2>🔐 LOGIN.EXE</h2>
+
+        <p>Enter your credentials, human.</p>
+
+        <form id="loginForm">
+
+            <label for="username">👤 USERNAME</label>
+            <input type="text"
+                   id="username"
+                   placeholder="Enter your fake identity..."
+                   required>
+
+            <label for="password">🔑 PASSWORD</label>
+            <input type="password"
+                   id="password"
+                   placeholder="Your questionable secret..."
+                   required>
+
+            <button type="submit">
+                🚀 ACCESS THE DUMPSTER
+            </button>
+
+        </form>
+
+        <div class="fake-ad">
+            <h2>💰 FREE MONEY!!!</h2>
+            <p>LOGIN NOW TO BECOME ABSOLUTELY BROKE!</p>
+            <button type="button"
+                onclick="alert('Congratulations! You are still poor.')">
+                CLAIM $999999
+            </button>
+        </div>
+
+        <p style="color:cyan;font-size:12px;margin-top:20px;">
+            🔒 SECURITY LEVEL: WINDOWS XP
+        </p>
+
+        <p style="color:red;">
+            ⚠️ FORGOT PASSWORD? FORGET EVERYTHING.
+        </p>
+
+    </div>
+
+</div>
+
+<marquee direction="right" scrollamount="10">
+💀 WRONG PASSWORD? BLAME THE KEYBOARD 💀
+</marquee>
+
+<footer>
+    <p>© 2003-2026 INTERNET DUMP TRUCK™</p>
+    <p>Best viewed while questioning your life choices.</p>
+    <p>🔐 Your password is safe with imaginary security.</p>
+</footer>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Frontend-only login
+    window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
