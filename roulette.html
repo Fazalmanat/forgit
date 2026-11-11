@@ -1,0 +1,1498 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCAM CASINO - ROULETTE</title>
+
+
+<style>
+* {
+    box-sizing: border-box;
+    cursor: crosshair;
+}
+
+body {
+    margin: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        #080008,
+        #080008 10px,
+        #190019 10px,
+        #190019 20px
+    );
+    color: lime;
+    font-family: "Comic Sans MS", cursive;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(90deg, red, purple, blue);
+    border-bottom: 5px dashed yellow;
+}
+
+header h1 {
+    font-size: 42px;
+    color: yellow;
+    text-shadow: 4px 4px red, -4px -4px blue;
+    animation: shake 0.2s infinite alternate;
+}
+
+header a {
+    color: cyan;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+marquee {
+    background: yellow;
+    color: red;
+    font-weight: bold;
+    padding: 8px;
+}
+
+/* =================================
+   MAIN PAGE LAYOUT
+================================= */
+
+.container {
+    max-width: 1450px;
+    margin: auto;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr) 200px;
+    gap: 15px;
+}
+
+.box {
+    border: 4px ridge hotpink;
+    background: #100010;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px magenta;
+}
+
+.box h2 {
+    color: hotpink;
+    text-align: center;
+}
+
+.ad {
+    background: linear-gradient(135deg, red, orange, yellow);
+    color: black;
+    border: 5px outset yellow;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.ad button {
+    background: lime;
+    color: red;
+    font-size: 17px;
+    font-weight: bold;
+    border: 4px outset green;
+    padding: 10px;
+}
+
+.ad button:hover {
+    background: hotpink;
+    transform: scale(1.05);
+}
+
+.main {
+    background: rgba(0,0,0,.85);
+    border: 5px dashed lime;
+    padding: 20px;
+    text-align: center;
+    min-width: 0;
+}
+
+.balance {
+    background: black;
+    border: 4px ridge gold;
+    color: yellow;
+    padding: 15px;
+    font-size: 24px;
+    margin: 15px 0;
+}
+
+/* =================================
+   COMBINED GAME FRAME
+================================= */
+
+.game-frame {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 15px;
+    align-items: stretch;
+    background: #080808;
+    border: 5px ridge gold;
+    padding: 15px;
+    box-shadow: 0 0 20px gold;
+}
+
+.wheel-panel,
+.controls-panel {
+    min-width: 0;
+    padding: 12px;
+    border: 3px dashed lime;
+    background: #001000;
+    text-align: center;
+}
+
+.wheel-panel h2,
+.controls-panel h2 {
+    color: gold;
+    text-shadow: 2px 2px red;
+    font-size: 20px;
+}
+
+/* =================================
+   ROULETTE WHEEL
+================================= */
+
+.wheel-pointer {
+    color: yellow;
+    font-size: 30px;
+    position: relative;
+    z-index: 5;
+    margin-bottom: -12px;
+}
+
+.wheel {
+    position: relative;
+    width: min(100%, 330px);
+    aspect-ratio: 1 / 1;
+    height: auto;
+    margin: 15px auto;
+    border-radius: 50%;
+    border: 12px ridge gold;
+    box-shadow: 0 0 25px gold;
+    transition: transform 4s cubic-bezier(.12,.75,.15,1);
+    flex-shrink: 0;
+}
+
+.wheel::after {
+    content: "CASINO";
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    background: radial-gradient(gold, darkorange);
+    border: 5px ridge yellow;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    z-index: 3;
+}
+
+/* Numbers positioned by JavaScript */
+
+.wheel-number {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* =================================
+   RESULT DISPLAY
+================================= */
+
+.result {
+    background: black;
+    border: 4px double yellow;
+    padding: 12px;
+    margin: 15px 0;
+    font-size: 17px;
+    color: yellow;
+    overflow-wrap: anywhere;
+}
+
+#resultNumber {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+/* =================================
+   BETTING CONTROLS
+================================= */
+
+.bet-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 3px dashed cyan;
+    background: #001a1a;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.bet-options label {
+    color: cyan;
+    font-weight: bold;
+    text-align: left;
+}
+
+.bet-options select,
+.bet-options input {
+    width: 100%;
+    padding: 9px;
+    font-size: 15px;
+    margin: 0;
+    border: 2px solid magenta;
+    background: white;
+    color: black;
+}
+
+.bet-options button {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background: lime;
+    color: red;
+    border: 4px outset green;
+}
+
+.bet-options button:hover {
+    background: hotpink;
+    transform: scale(1.02);
+}
+
+.bet-options button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* =================================
+   ROULETTE NUMBER TABLE
+================================= */
+/* =================================
+   ROULETTE BETTING TABLE
+================================= */
+
+.betting-table {
+    display: grid;
+    grid-template-columns: 42px repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(3, 42px);
+    gap: 3px;
+    width: 100%;
+    margin: 15px auto;
+}
+
+.bet-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    border: 2px outset #ffffff;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: crosshair;
+}
+
+/* Green zero */
+.bet-cell.green {
+    background: #008f35 !important;
+    color: white !important;
+    grid-column: 1;
+    grid-row: 1 / 4;
+}
+
+/* Brighter red */
+.bet-cell.red {
+    background: #f00018 !important;
+    color: white !important;
+}
+
+/* Black */
+.bet-cell.black {
+    background: #171717 !important;
+    color: white !important;
+}
+
+/* Hover */
+.bet-cell:hover {
+    filter: brightness(1.35);
+    border: 2px solid yellow;
+}
+
+/* Selected number */
+.bet-cell.selected {
+    outline: 3px solid yellow;
+    outline-offset: -3px;
+    filter: brightness(1.4);
+    z-index: 2;
+}
+
+/* Mobile */
+@media(max-width: 650px) {
+
+    .betting-table {
+        grid-template-columns: 32px repeat(12, minmax(0, 1fr));
+        grid-template-rows: repeat(3, 36px);
+        gap: 2px;
+    }
+
+    .bet-cell {
+        font-size: 10px;
+    }
+
+}
+
+
+
+/* =================================
+   BET STATUS AND SPIN BUTTON
+================================= */
+
+.bet-status {
+    color: cyan;
+    font-size: 14px;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.spin-button {
+    background: gold !important;
+    color: red !important;
+    font-size: 19px !important;
+    border: 5px outset orange !important;
+    padding: 12px !important;
+}
+
+.spin-button:hover {
+    background: hotpink !important;
+    transform: scale(1.03);
+}
+
+.spin-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* =================================
+   FOOTER
+================================= */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: black;
+    border-top: 5px dotted lime;
+    color: hotpink;
+}
+
+/* =================================
+   ANIMATIONS
+================================= */
+
+@keyframes shake {
+    from {
+        transform: rotate(-2deg);
+    }
+
+    to {
+        transform: rotate(2deg);
+    }
+}
+
+/* =================================
+   RESPONSIVE TABLET
+================================= */
+
+@media(max-width: 1050px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .game-frame {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+}
+
+/* =================================
+   RESPONSIVE MOBILE
+================================= */
+
+@media(max-width: 650px) {
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .main {
+        padding: 10px;
+    }
+
+    .game-frame {
+        grid-template-columns: 1fr;
+        padding: 8px;
+        gap: 12px;
+    }
+
+    .wheel-panel,
+    .controls-panel {
+        padding: 10px;
+    }
+
+    .wheel {
+        width: min(100%, 300px);
+    }
+
+    .betting-table {
+        grid-template-columns: 32px repeat(12, minmax(0, 1fr));
+        gap: 2px;
+    }
+
+    .bet-cell {
+        font-size: 10px;
+        padding: 8px 0;
+    }
+
+    .balance {
+        font-size: 19px;
+    }
+
+}
+
+/* =================================
+   FULL SCREEN JACKPOT OVERLAY
+================================= */
+
+.win-celebration {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    z-index: 2147483647 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.92);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+.win-celebration.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.win-message {
+    position: relative;
+    z-index: 10;
+
+    width: min(90%, 650px);
+    padding: 30px 15px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        #ff00ff,
+        #7500a8,
+        #ff0000
+    );
+
+    border: 10px ridge gold;
+
+    box-shadow:
+        0 0 25px gold,
+        0 0 60px magenta;
+
+    transform: scale(0);
+}
+
+.win-celebration.active .win-message {
+    animation: jackpotPop 2.8s ease forwards;
+}
+
+.win-message h1 {
+    color: yellow;
+    font-size: clamp(40px, 9vw, 85px);
+    margin: 10px 0;
+
+    text-shadow:
+        4px 4px red,
+        -4px -4px blue,
+        0 0 20px yellow;
+
+    animation: jackpotText 0.25s infinite alternate;
+}
+
+.win-message p {
+    color: white;
+    font-weight: bold;
+    font-size: clamp(13px, 3vw, 22px);
+}
+
+#confettiContainer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    top: -25px;
+    animation: confettiFall 2s ease-in forwards;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.confetti.gold {
+    background: linear-gradient(135deg, #fff4a3, #d4a017, #fff0a0);
+    color: gold;
+}
+
+.confetti.silver {
+    background: linear-gradient(135deg, white, #888, #eee);
+    color: silver;
+}
+
+.confetti.pink {
+    background: linear-gradient(135deg, #ffb3ff, #ff00ff, white);
+    color: magenta;
+}
+
+.confetti.cyan {
+    background: linear-gradient(135deg, white, cyan, #007fff);
+    color: cyan;
+}
+
+.confetti.green {
+    background: linear-gradient(135deg, #ccffcc, lime, green);
+    color: lime;
+}
+
+@keyframes jackpotPop {
+    0% {
+        transform: scale(0) rotate(-15deg);
+    }
+
+    15% {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    25% {
+        transform: scale(1) rotate(0);
+    }
+
+    85% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+@keyframes jackpotText {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-5vh) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(115vh) rotate(900deg);
+        opacity: 0;
+    }
+}
+
+@keyframes overlayDisappear {
+    0%, 85% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- WIN CELEBRATION OVERLAY -->
+<div id="winCelebration" class="win-celebration">
+
+    <div class="win-message">
+        🎉 JACKPOT!!! 🎉
+        <h1>YOU WON!!!</h1>
+        <p>💰 THE CASINO HAS BEEN DEFEATED 💰</p>
+    </div>
+
+    <div id="confettiContainer"></div>
+
+</div>
+
+<header>
+    <h1>🎰 THE SCAM CASINO 🎰</h1>
+    <p>WELCOME TO THE MOST UNTRUSTWORTHY CASINO ON THE INTERNET</p>
+    <a href="index.html">🏠 BACK TO THE INTERNET DUMPSTER</a>
+</header>
+
+<marquee scrollamount="12">
+💰 BET YOUR ENTIRE FORTUNE!!! 100% FAKE CASINO!!! NO REFUNDS!!! HOUSE ALWAYS WINS!!! 💰
+</marquee>
+
+<div class="container">
+
+<!-- LEFT SIDEBAR -->
+<aside>
+
+    <div class="box">
+        <h2>💸 FREE MONEY</h2>
+        <div class="ad">
+            <h1>₹₹₹</h1>
+            <p>YOU ARE PRE-APPROVED FOR A MILLIONAIRE LIFESTYLE!</p>
+            <button onclick="alert('Your application was rejected by a potato.')">
+                CLAIM NOW
+            </button>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>🚨 CASINO RULES</h2>
+        <p>1. Always trust strangers.</p>
+        <p>2. Never question the wheel.</p>
+        <p>3. Blame the computer.</p>
+        <p>4. There are no refunds.</p>
+    </div>
+
+</aside>
+
+<!-- MAIN GAME -->
+<main class="main">
+
+    <h1 style="color:yellow;text-shadow:3px 3px red;">
+        🎡 ROULETTE OF DESTINY 🎡
+    </h1>
+
+    <p>PLACE YOUR BETS, GAMBLING LEGEND.</p>
+
+
+    <div class="balance">
+        💰 YOUR FORTUNE:
+        <span id="balance">1000</span> COINS
+    </div>
+
+    <div class="game-frame">
+
+        <!-- LEFT: ROULETTE WHEEL -->
+        <section class="wheel-panel">
+
+            <h2>🎡 THE LEGENDARY WHEEL</h2>
+
+            <div class="wheel-pointer">▼</div>
+
+            <div class="wheel" id="wheel"></div>
+
+            <div class="result">
+                <div id="resultText">WAITING FOR YOUR BAD DECISIONS...</div>
+                <div id="resultNumber">?</div>
+            </div>
+
+            <p style="color:cyan;">
+                37 NUMBERS. ONE DESTINY.
+            </p>
+
+        </section>
+
+        <!-- RIGHT: BETTING CONTROLS -->
+        <section class="controls-panel">
+
+            <h2>🎯 PLACE YOUR BET</h2>
+
+            <div class="bet-options">
+
+                <p>Selected: <span id="selectedBet">None</span></p>
+
+                <label>BET TYPE</label>
+
+                <select id="betType">
+                    <option value="number">Number (35:1)</option>
+                    <option value="red">Red (1:1)</option>
+                    <option value="black">Black (1:1)</option>
+                    <option value="odd">Odd (1:1)</option>
+                    <option value="even">Even (1:1)</option>
+                </select>
+
+                <label>BET AMOUNT</label>
+
+                <input type="number" id="betAmount"
+                    value="100" min="1" step="1">
+
+                <div class="betting-table" id="bettingTable">
+
+                    <button class="bet-cell green"
+                        data-number="0"
+                        style="grid-column:1;grid-row:1 / 4;">
+                        0
+                    </button>
+
+                </div>
+
+                <p class="bet-status" id="betStatus">
+                    SELECT YOUR BET.
+                </p>
+
+                <button onclick="placeBet()">💰 PLACE BET</button>
+
+                <button onclick="clearBet()" style="background:orange;">
+                    CANCEL BET
+                </button>
+
+                <button class="spin-button" id="spinButton"
+                        onclick="spinWheel()">
+                    🎰 SPIN THE WHEEL
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside>
+
+    <div class="box">
+        <h2>🏆 JACKPOT</h2>
+        <div class="ad">
+            <h1>999999</h1>
+            <p>FAKE COINS WAITING FOR YOU!</p>
+            <button onclick="alert('The jackpot has mysteriously disappeared.')">
+                COLLECT
+            </button>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>🧠 CASINO WISDOM</h2>
+        <p>"The house always wins."</p>
+        <p>"Unless the computer crashes."</p>
+        <p>"Then everyone loses."</p>
+    </div>
+
+    <div class="box">
+        <h2>📢 SPECIAL OFFER</h2>
+        <p>BET 1000 COINS AND GET ABSOLUTELY NOTHING EXTRA!</p>
+        <button onclick="alert('Offer expired 23 years ago.')">
+            ACTIVATE
+        </button>
+    </div>
+
+</aside>
+
+</div>
+
+<marquee direction="right" scrollamount="15">
+💀 THANK YOU FOR DESTROYING YOUR FAKE FINANCES 💀 COME AGAIN 💀
+</marquee>
+
+<footer>
+    <p>© 2003-2026 THE SCAM CASINO™</p>
+    <p>Powered by questionable mathematics.</p>
+    <p>All coins are imaginary. All losses are emotional.</p>
+</footer>
+
+<script>
+
+
+// =============================================
+// ROULETTE CONFIGURATION
+// =============================================
+
+const redNumbers = [
+    1, 3, 5, 7, 9, 12, 14, 16, 18,
+    19, 21, 23, 25, 27, 30, 32, 34, 36
+];
+
+const blackNumbers = [
+    2, 4, 6, 8, 10, 11, 13, 15, 17,
+    20, 22, 24, 26, 28, 29, 31, 33, 35
+];
+
+// Actual European roulette wheel sequence
+const wheelOrder = [
+    0, 32, 15, 19, 4, 21, 2, 25, 17, 34,
+    6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
+    24, 16, 33, 1, 20, 14, 31, 9, 22, 18,
+    29, 7, 28, 12, 35, 3, 26
+];
+
+let balance = 1000;
+let currentBet = null;
+let rotation = 0;
+let spinning = false;
+
+
+// =============================================
+// HELPER FUNCTIONS
+// =============================================
+
+function getNumberColor(number) {
+
+    if (number === 0) return "GREEN";
+
+    return redNumbers.includes(number) ? "RED" : "BLACK";
+
+}
+
+function updateBalance() {
+
+    document.getElementById("balance").textContent = balance;
+
+}
+
+function clearNumberSelection() {
+
+    document.querySelectorAll(".bet-cell").forEach(btn => {
+        btn.classList.remove("selected");
+    });
+
+}
+
+
+// =============================================
+// INITIALIZE ROULETTE WHEEL
+// =============================================
+
+function initializeWheel() {
+
+    const wheel = document.getElementById("wheel");
+
+    if (!wheel) {
+        console.error("Roulette wheel element not found!");
+        return;
+    }
+
+    const segment = 360 / 37;
+
+    // Generate correct wheel colours
+    const gradients = wheelOrder.map((number, index) => {
+
+        const start = index * segment;
+        const end = (index + 1) * segment;
+
+        return `${number === 0 ? "#008000" :
+            redNumbers.includes(number) ? "#c90000" : "#111111"}
+            ${start}deg ${end}deg`;
+
+    });
+
+    wheel.style.background =
+        `conic-gradient(from -${segment / 2}deg, ${gradients.join(",")})`;
+
+    // Remove existing labels
+    wheel.querySelectorAll(".wheel-number").forEach(label => {
+        label.remove();
+    });
+
+    // Calculate number positions dynamically
+    const radius = wheel.clientWidth * 0.39;
+
+    wheelOrder.forEach((number, index) => {
+
+        const angle = index * segment;
+        const radians = angle * Math.PI / 180;
+
+        const x = radius * Math.sin(radians);
+        const y = -radius * Math.cos(radians);
+
+        const label = document.createElement("div");
+
+        label.className = "wheel-number";
+        label.textContent = number;
+
+        label.style.left = `calc(50% + ${x}px)`;
+        label.style.top = `calc(50% + ${y}px)`;
+        label.style.transform = "translate(-50%, -50%)";
+
+        wheel.appendChild(label);
+
+    });
+
+}
+
+// Recalculate positions if wheel size changes
+initializeWheel();
+
+window.addEventListener("resize", initializeWheel);
+
+
+// =============================================
+// CREATE BETTING TABLE
+// =============================================
+
+
+function createBettingTable() {
+
+    const table = document.getElementById("bettingTable");
+
+    if (!table) {
+        console.error("Betting table not found!");
+        return;
+    }
+
+    // Configure zero
+    const zeroButton = table.querySelector('[data-number="0"]');
+
+    if (zeroButton) {
+
+        zeroButton.type = "button";
+        zeroButton.className = "bet-cell green";
+        zeroButton.textContent = "0";
+
+        zeroButton.style.gridColumn = "1";
+        zeroButton.style.gridRow = "1 / 4";
+
+        zeroButton.onclick = () => selectNumber(0);
+
+    }
+
+    // Remove previously generated numbers
+    table.querySelectorAll(
+        ".bet-cell:not([data-number='0'])"
+    ).forEach(button => button.remove());
+
+    // Generate numbers in correct roulette table order
+    for (let col = 0; col < 12; col++) {
+
+        for (let row = 0; row < 3; row++) {
+
+            const number = col * 3 + (3 - row);
+
+            const button = document.createElement("button");
+
+            button.type = "button";
+
+            button.className = "bet-cell " +
+                (redNumbers.includes(number) ? "red" : "black");
+
+            button.textContent = number;
+
+            button.dataset.number = number;
+
+            // Explicit grid placement
+            button.style.gridColumn = String(col + 2);
+            button.style.gridRow = String(row + 1);
+
+            button.addEventListener("click", () => {
+                selectNumber(number);
+            });
+
+            table.appendChild(button);
+
+        }
+
+    }
+
+}
+
+createBettingTable();
+
+
+
+// =============================================
+// NUMBER SELECTION
+// =============================================
+
+function selectNumber(number) {
+
+    if (spinning || (currentBet && currentBet.amount)) {
+        return;
+    }
+
+    clearNumberSelection();
+
+    const selected = document.querySelector(
+        `.bet-cell[data-number="${number}"]`
+    );
+
+    if (selected) {
+        selected.classList.add("selected");
+    }
+
+    document.getElementById("betType").value = "number";
+
+    document.getElementById("selectedBet").textContent =
+        number === 0 ? "GREEN ZERO (0)" : "Number " + number;
+
+    currentBet = {
+        type: "number",
+        value: number
+    };
+}
+
+
+// =============================================
+// BET PLACEMENT
+// =============================================
+
+function placeBet() {
+
+    if (spinning || (currentBet && currentBet.amount)) {
+        return;
+    }
+
+    const type = document.getElementById("betType").value;
+
+    const amount = Number(
+        document.getElementById("betAmount").value
+    );
+
+    // Validate amount
+    if (!Number.isSafeInteger(amount) || amount <= 0) {
+
+        alert("Enter a valid whole number of coins.");
+
+        return;
+
+    }
+
+    // Check available balance
+    if (amount > balance) {
+
+        alert("BROKE ALERT!!! You don't have enough coins.");
+
+        return;
+
+    }
+
+    let value = null;
+
+    // Number selection validation
+    if (type === "number") {
+
+        if (!currentBet || currentBet.type !== "number") {
+
+            alert("Select a number from the betting table first!");
+
+            return;
+
+        }
+
+        value = currentBet.value;
+
+    }
+
+    // Deduct balance
+    balance -= amount;
+
+    // Save the actual bet
+    currentBet = {
+        type: type,
+        value: value,
+        amount: amount
+    };
+
+    updateBalance();
+
+    document.getElementById("selectedBet").textContent =
+        type === "number"
+            ? "Number " + value
+            : type.toUpperCase();
+
+    document.getElementById("betStatus").textContent =
+        "🔒 BET LOCKED: " + amount + " COINS ON " +
+        (type === "number" ? value : type.toUpperCase());
+
+    // Prevent changing bet after placement
+    document.getElementById("betType").disabled = true;
+    document.getElementById("betAmount").disabled = true;
+
+}
+
+
+// =============================================
+// CANCEL BET
+// =============================================
+
+function clearBet() {
+
+    if (spinning) return;
+
+    if (currentBet && currentBet.amount) {
+
+        balance += currentBet.amount;
+
+        updateBalance();
+
+    }
+
+    currentBet = null;
+
+    clearNumberSelection();
+
+    document.getElementById("betStatus").textContent =
+        "BET CANCELLED. YOUR MONEY IS BACK.";
+
+    document.getElementById("selectedBet").textContent = "None";
+
+    document.getElementById("betType").disabled = false;
+    document.getElementById("betAmount").disabled = false;
+
+}
+
+
+// =============================================
+// SPIN ROULETTE WHEEL
+// =============================================
+
+function spinWheel() {
+
+    if (spinning) return;
+
+    if (!currentBet || !currentBet.amount) {
+
+        alert("PLACE A BET FIRST, YOU COWARD!");
+
+        return;
+
+    }
+
+    spinning = true;
+
+    const spinButton = document.getElementById("spinButton");
+
+    spinButton.disabled = true;
+    spinButton.textContent = "🌀 SPINNING...";
+
+    document.getElementById("resultText").textContent =
+        "THE WHEEL IS DECIDING YOUR FATE...";
+
+    document.getElementById("resultNumber").textContent = "?";
+
+    // Random winning number: 0 to 36
+    const winningNumber = Math.floor(Math.random() * 37);
+
+    const segment = 360 / 37;
+
+    const winningIndex = wheelOrder.indexOf(winningNumber);
+
+    // Segment centers are offset by half a segment.
+    // Align the winning segment center with the top pointer.
+    const targetAngle = (360 - (winningIndex * segment)) % 360;
+
+    const currentAngle = ((rotation % 360) + 360) % 360;
+
+    const extraRotation =
+        (targetAngle - currentAngle + 360) % 360;
+
+    // Six complete rotations plus final alignment
+    rotation += 360 * 6 + extraRotation;
+
+    document.getElementById("wheel").style.transform =
+        `rotate(${rotation}deg)`;
+
+    // Wait for wheel animation to complete
+    setTimeout(() => {
+
+        finishGame(winningNumber);
+
+    }, 4100);
+
+}
+
+
+// =============================================
+// CALCULATE GAME RESULT
+// =============================================
+
+function finishGame(number) {
+
+    const bet = currentBet;
+
+    if (!bet || !bet.amount) {
+
+        spinning = false;
+
+        return;
+
+    }
+
+    let won = false;
+    let winnings = 0;
+
+    // Straight number bet: 35:1 profit + original stake
+    if (bet.type === "number") {
+
+        if (number === bet.value) {
+
+            won = true;
+            winnings = bet.amount * 36;
+
+        }
+
+    }
+
+    // Red bet
+    else if (bet.type === "red") {
+
+        if (redNumbers.includes(number)) {
+
+            won = true;
+            winnings = bet.amount * 2;
+
+        }
+
+    }
+
+    // Black bet
+    else if (bet.type === "black") {
+
+        if (blackNumbers.includes(number)) {
+
+            won = true;
+            winnings = bet.amount * 2;
+
+        }
+
+    }
+
+    // Odd bet
+    else if (bet.type === "odd") {
+
+        if (number !== 0 && number % 2 !== 0) {
+
+            won = true;
+            winnings = bet.amount * 2;
+
+        }
+
+    }
+
+    // Even bet
+    else if (bet.type === "even") {
+
+        if (number !== 0 && number % 2 === 0) {
+
+            won = true;
+            winnings = bet.amount * 2;
+
+        }
+
+    }
+
+    // Determine result colour
+    const color = getNumberColor(number);
+
+    const result = document.getElementById("resultNumber");
+
+    result.textContent = number;
+
+    result.style.color =
+        color === "RED" ? "red" :
+        color === "BLACK" ? "white" : "lime";
+
+    // Calculate outcome
+    if (won) {
+
+        // Trigger jackpot celebration
+        showWinCelebration();
+
+        balance += winnings;
+
+        document.getElementById("resultText").textContent =
+            "🎉 YOU WON!!! 🎉";
+
+        document.getElementById("betStatus").textContent =
+            "🤑 YOU WON " + (winnings - bet.amount) +
+            " PROFIT COINS!!!";
+
+    } else {
+
+        document.getElementById("resultText").textContent =
+            "💀 YOU LOST!!! 💀";
+
+        document.getElementById("betStatus").textContent =
+            "THE HOUSE WINS. CRY ABOUT IT.";
+
+    }
+
+    updateBalance();
+
+    // Save result to history
+    addHistory(number, color, won, bet);
+
+    // Reset bet
+    currentBet = null;
+
+    document.getElementById("betType").disabled = false;
+    document.getElementById("betAmount").disabled = false;
+
+    document.getElementById("selectedBet").textContent = "None";
+
+    clearNumberSelection();
+
+    // Enable next spin
+    document.getElementById("spinButton").disabled = false;
+
+    document.getElementById("spinButton").textContent =
+        "🎰 SPIN AGAIN 🎰";
+
+    spinning = false;
+
+}
+
+
+// =============================================
+// BETTING HISTORY
+// =============================================
+
+function addHistory(number, color, won, bet) {
+
+    const history = document.getElementById("history");
+
+    if (!history) return;
+
+    // Remove initial placeholder
+    if (
+        history.children.length === 1 &&
+        history.children[0].textContent.includes("Nothing happened")
+    ) {
+
+        history.innerHTML = "";
+
+    }
+
+    const entry = document.createElement("p");
+
+    entry.style.color = won ? "lime" : "red";
+
+    entry.textContent =
+        `Number ${number} (${color}) | ` +
+        `Bet: ${bet.amount} | ` +
+        (won ? "WIN 🤑" : "LOSS 💀");
+
+    history.prepend(entry);
+
+}
+
+
+// =============================================
+// JACKPOT CELEBRATION
+// =============================================
+
+
+function showWinCelebration() {
+
+    const overlay = document.getElementById("winCelebration");
+    const container = document.getElementById("confettiContainer");
+
+    if (!overlay || !container) {
+        console.error("Celebration HTML elements not found!");
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const colors = ["gold", "silver", "pink", "cyan", "green"];
+
+    // Create 150 confetti pieces
+    for (let i = 0; i < 150; i++) {
+
+        const piece = document.createElement("div");
+
+        piece.className = "confetti " +
+            colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.left = Math.random() * 100 + "%";
+
+        piece.style.animationDelay =
+            Math.random() * 0.6 + "s";
+
+        piece.style.animationDuration =
+            (1.5 + Math.random() * 1) + "s";
+
+        piece.style.width =
+            (5 + Math.random() * 10) + "px";
+
+        piece.style.height =
+            (10 + Math.random() * 18) + "px";
+
+        container.appendChild(piece);
+
+    }
+
+    // Show full-screen overlay
+    overlay.classList.remove("active");
+
+    void overlay.offsetWidth;
+
+    overlay.classList.add("active");
+
+    // Remove after animation
+    setTimeout(() => {
+
+        overlay.classList.remove("active");
+        container.innerHTML = "";
+
+    }, 3100);
+
+}
+
+
+
+</script>
+
+</body>
+</html>
